@@ -1,18 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Food : MonoBehaviour
+public class Food : FOVTarget
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action OnFoodDestroy = delegate { };
+
+    protected void Start()
     {
-        
+        //base.Start();
+
+        GameManager.Instance.allFood.Add(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetEat()
     {
-        
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        OnFoodDestroy();
+        GameManager.Instance.allFood.Remove(this);
+
     }
 }

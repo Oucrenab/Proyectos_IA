@@ -26,7 +26,7 @@ public class IdleState : IState
 
     public void OnUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.W))
-            _fsm.ChangeState(AgentState.Movement);
+        //if (Input.GetKeyDown(KeyCode.W))
+            //_fsm.ChangeState(OldAgentState.Movement);
     }
 }

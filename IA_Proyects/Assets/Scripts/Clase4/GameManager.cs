@@ -6,7 +6,23 @@ public class GameManager : MonoBehaviour
 {//a
     public static GameManager Instance;
 
-    public float width, height;
+    [Header("<color=yellow>Layout Size</color>")]
+    public float width;
+    public float height;
+    [Range(0, 1f)] public float tpOffset;
+    [Space]
+    [Header("<color=green>Boids variaables</color>")]
+    [SerializeField, Range(0f, 1f)] public float separationForce;
+    [SerializeField, Range(0f, 1f)] public float cohesionForce;
+    [SerializeField, Range(0f, 1f)] public float alignmetForce;
+
+    public float separationRadius;
+    public float cohesionAlignmentRadius;
+
+    public List<Boid> allBoids = new();
+    public List<Food> allFood = new();
+    public List<Hunter> allHunter = new();
+
 
     private void Awake()
     {
@@ -16,10 +32,10 @@ public class GameManager : MonoBehaviour
 
     public Vector3 GetPosition(Vector3 position)
     {
-        if(position.x <-width) position.x = width;
-        if(position.x >width) position.x = -width;
-        if(position.y <-height) position.x = height;
-        if(position.y >height) position.x = -height;
+        if(position.x <-width) position.x = width - tpOffset;
+        if(position.x >width) position.x = -width + tpOffset;
+        if(position.y <-height) position.y = height - tpOffset;
+        if(position.y >height) position.y = -height + tpOffset;
 
         return position;
     }

@@ -14,12 +14,12 @@ public class FSMAgent : MonoBehaviour
         _fsm = new FSM();
 
         //add Idle
-        _fsm.AddState(AgentState.Idle, new IdleState(_fsm, _spriteR));
+        //_fsm.AddState(OldAgentState.Idle, new IdleState(_fsm, _spriteR));
         //add Movement
-        _fsm.AddState(AgentState.Movement, new MovementState(_fsm, transform, _speed));
+        //_fsm.AddState(OldAgentState.Movement, new MovementState(_fsm, transform, _speed));
 
         //Default Idle
-        _fsm.ChangeState(AgentState.Idle);
+        //_fsm.ChangeState(OldAgentState.Idle);
     }
 
     private void Update()
@@ -28,7 +28,7 @@ public class FSMAgent : MonoBehaviour
     }
 }
 
-public enum AgentState
+public enum OldAgentState
 {
     Idle,
     Movement

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class FOVAgent : FOVTarget
 {
-    [SerializeField] List<FOVTarget> _otherAgents;
+    [SerializeField]protected List<FOVTarget> _otherAgents;
 
-    [SerializeField] LayerMask _obstacle;
+    [SerializeField]protected LayerMask _obstacle;
 
-    [SerializeField, Range(0, 360)] float _viewAngre;
-    [SerializeField, Range(0.5f, 15)] float _viewRange;
+    [SerializeField, Range(0, 360)] protected float _viewAngre;
+    [SerializeField, Range(0.5f, 15)]protected float _viewRange;
 
-    private void Start()
+    protected virtual void Start()
     {
         ChangeColor(Color.red);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
 
 
@@ -26,7 +26,7 @@ public class FOVAgent : FOVTarget
         }
     }
 
-    bool InFOV(Vector3 endPos)
+    protected bool InFOV(Vector3 endPos)
     {
         var dir = endPos - transform.position;
         if (dir.magnitude > _viewRange) return false;
@@ -37,14 +37,14 @@ public class FOVAgent : FOVTarget
         return true;
     }
 
-    bool InLOS(Vector3 start, Vector3 end)
+    protected bool InLOS(Vector3 start, Vector3 end)
     {
         Vector3 dir = end - start;
 
         return !(Physics.Raycast(start, dir.normalized, dir.magnitude, _obstacle));
     }
 
-    private void OnDrawGizmosSelected()
+    protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, _viewRange);

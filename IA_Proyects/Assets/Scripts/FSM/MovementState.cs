@@ -29,7 +29,7 @@ public class MovementState : IState
     {
         _target.position += _target.right * _speed * Time.deltaTime;
 
-        if (Input.GetKeyUp(KeyCode.W))
-            _fsm.ChangeState(AgentState.Idle);
+        //if (Input.GetKeyUp(KeyCode.W))
+            //_fsm.ChangeState(OldAgentState.Idle);
     }
 }

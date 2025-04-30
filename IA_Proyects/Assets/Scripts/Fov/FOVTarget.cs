@@ -6,7 +6,7 @@ public class FOVTarget : MonoBehaviour
 {
     SpriteRenderer _spriteR;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         _spriteR = GetComponent<SpriteRenderer>();
     }
