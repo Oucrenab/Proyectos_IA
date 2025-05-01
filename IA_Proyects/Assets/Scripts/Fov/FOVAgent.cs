@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class FOVAgent : FOVTarget
 {
-    [SerializeField]protected List<FOVTarget> _otherAgents;
+    //[SerializeField]protected List<FOVTarget> _otherAgents;
 
+    [Header("<color=cyan>FOV Agent</color>")]
     [SerializeField]protected LayerMask _obstacle;
-
-    [SerializeField, Range(0, 360)] protected float _viewAngre;
+    [Space]
+    [SerializeField, Range(0, 360)] protected float _maxViewAngle;
+    [SerializeField, Range(0, 360)] protected float _viewAngle;
     [SerializeField, Range(0.5f, 15)]protected float _viewRange;
+
+    protected override void Awake()
+    {
+        _viewAngle = _maxViewAngle;
+    }
 
     protected virtual void Start()
     {
@@ -20,17 +27,17 @@ public class FOVAgent : FOVTarget
     {
 
 
-        foreach (var agent in _otherAgents)
-        {
-            agent.ChangeColor(InFOV(agent.transform.position) ? Color.blue : Color.white);
-        }
+        //foreach (var agent in _otherAgents)
+        //{
+        //    agent.ChangeColor(InFOV(agent.transform.position) ? Color.blue : Color.white);
+        //}
     }
 
     protected bool InFOV(Vector3 endPos)
     {
         var dir = endPos - transform.position;
         if (dir.magnitude > _viewRange) return false;
-        if (Vector3.Angle(transform.right, dir) > _viewAngre * 0.5f) return false;
+        if (Vector3.Angle(transform.right, dir) > _viewAngle * 0.5f) return false;
         if (!InLOS(transform.position, endPos)) return false;
 
 
@@ -49,8 +56,8 @@ public class FOVAgent : FOVTarget
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, _viewRange);
 
-        Vector3 dirA = GetAngleFromDir(_viewAngre * 0.5f + transform.eulerAngles.y);
-        Vector3 dirB = GetAngleFromDir(-_viewAngre * 0.5f + transform.eulerAngles.y);
+        Vector3 dirA = GetAngleFromDir(_viewAngle * 0.5f + transform.eulerAngles.y);
+        Vector3 dirB = GetAngleFromDir(-_viewAngle * 0.5f + transform.eulerAngles.y);
 
         Gizmos.DrawLine(transform.position, transform.position + dirA.normalized);
         Gizmos.DrawLine(transform.position, transform.position + dirB.normalized);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,10 +16,15 @@ public class GameManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] public float separationForce;
     [SerializeField, Range(0f, 1f)] public float cohesionForce;
     [SerializeField, Range(0f, 1f)] public float alignmetForce;
-
     public float separationRadius;
     public float cohesionAlignmentRadius;
-
+    [Space]
+    [Header("<color=blue>Prefabs</color>")]
+    [SerializeField] Boid boidPrefab;
+    [SerializeField] Food foodPrefab;
+    [Space]
+    [SerializeField] Camera _camera;
+    [SerializeField] TreeNode _firstNode;
     public List<Boid> allBoids = new();
     public List<Food> allFood = new();
     public List<Hunter> allHunter = new();
@@ -28,6 +34,39 @@ public class GameManager : MonoBehaviour
     {
         if(Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            var mousePos = GetMouseWordlPosition(_camera, _camera.transform.position.z);
+
+            var boid = Instantiate(boidPrefab, mousePos, Quaternion.identity);
+            boid._firtNode = _firstNode;
+            boid.gameObject.SetActive(true);
+            //Input.mousePosition
+        }
+        if(Input.GetMouseButtonDown(1))
+        {
+            var mousePos = GetMouseWordlPosition(_camera, _camera.transform.position.z);
+
+            Instantiate(foodPrefab, mousePos, Quaternion.identity);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(foodPrefab, new Vector3(UnityEngine.Random.Range(-width, width), UnityEngine.Random.Range(-height, height), 0), Quaternion.identity);
+
+        }
+    }
+
+
+
+    Vector3 GetMouseWordlPosition(Camera cam, float worldDepth)
+    {
+        var screenPos = math.clamp(Input.mousePosition, Vector3.zero ,new Vector3(Screen.width -1 , Screen.height -1,0));
+        screenPos.z = -worldDepth;
+        return cam.ScreenToWorldPoint(screenPos);
     }
 
     public Vector3 GetPosition(Vector3 position)
@@ -54,4 +93,6 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawLine(RightUp, RightDown);
         Gizmos.DrawLine(LeftDown, RightDown);
     }
+
+    
 }

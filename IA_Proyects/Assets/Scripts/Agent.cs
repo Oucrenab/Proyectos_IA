@@ -4,17 +4,19 @@ using UnityEngine;
 
 public abstract class Agent : FOVAgent
 {
-    [SerializeField] protected Agent _target;
+    protected Agent _target;
     [Space]
     [Header("<color=green>Agent Stats</color>")]
     [SerializeField, Range(0, 20)] protected float _maxVelocity;
     [SerializeField, Range(0, 1)] protected float _maxForce;
     [SerializeField] float _arriveRad;
     [Space]
-    [SerializeField] protected SteeringElection _currentElection;
+    protected SteeringElection _currentElection;
 
     protected Vector3 _velocity;
     public Vector3 Velocity { get { return _velocity; } }
+
+
     protected override void Update()
     {
         #region Comment

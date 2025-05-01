@@ -5,27 +5,37 @@ using UnityEngine;
 public class Hunter : Agent
 {
 
+    [Header("<color=red> Hunter </color>")]
     [SerializeField] FSM _fsm;
+    [Space]
     [SerializeField] Transform[] _wayPoints;
     [SerializeField, Range(0,1f)] float _changePontDist;
+    [Space]
     [SerializeField, Range(0, 10f)] float _restTime;
+    [Space]
     [SerializeField] protected SpriteRenderer _spriteR;
+    [Space]
     int _currentWayPoint;
 
     public Boid closeBoid;
 
+    public float ViewAngle
+    {
+        get { return _viewAngle; }
+        set { _viewAngle = value; }
+    }
     //public AgentState hunterState;
 
     protected override void Awake()
     {
-        //base.Awake();
+        base.Awake();
         _fsm = new FSM();
 
         _spriteR = GetComponent<SpriteRenderer>();
 
         _fsm.AddState(AgentState.Patrol, new HunterPatrol(_fsm, this, _spriteR, _wayPoints, _changePontDist, AddForce, Seek, InFOV));
-        _fsm.AddState(AgentState.Hunt, new HunterHunt(_fsm, this, _spriteR,AddForce,Persuit));
-        _fsm.AddState(AgentState.Rest, new HunterRest(_fsm,this, _spriteR, _restTime ,CallStartCoroutine, AddForce, Seek));
+        _fsm.AddState(AgentState.Hunt, new HunterHunt(_fsm, this, _spriteR,AddForce,Persuit,InFOV));
+        _fsm.AddState(AgentState.Rest, new HunterRest(_fsm,this, _spriteR, _restTime ,CallStartCoroutine, AddForce, Seek,InFOV));
 
         _fsm.ChangeState(AgentState.Patrol);
     }
@@ -92,6 +102,25 @@ public class Hunter : Agent
     private void OnDestroy()
     {
         GameManager.Instance.allHunter.Remove(this);
+    }
+    //a
+    [SerializeField, Range(0,100)] float _energy;
+    [SerializeField,Range(1, 20)] float _consumeRate;
+    public float Energy { get { return _energy; } }
+
+    public void ConsumeEnergy(float amount)
+    {
+        _energy -= amount * _consumeRate;
+    }
+
+    public void RestoreEnergy()
+    {
+        _energy = 100;
+    }
+
+    public void ResetViewAngle()
+    {
+        _viewAngle = _maxViewAngle;
     }
 }
 

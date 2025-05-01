@@ -10,7 +10,6 @@ public class Food : FOVTarget
     protected void Start()
     {
         //base.Start();
-
         GameManager.Instance.allFood.Add(this);
     }
 

@@ -17,6 +17,7 @@ public class HunterPatrol : IState
     Func<Vector3, bool> FovCheck;
 
     int _currentWayPoint;
+    Boid closeBoid = null;
 
 
     public HunterPatrol(FSM fsm, Hunter myHunter,SpriteRenderer render, Transform[] wayPoint, float changeDist, Action<Vector3> newAddForce, Func<Vector3, Vector3> newSeek, Func<Vector3, bool> fovCheck)
@@ -53,8 +54,18 @@ public class HunterPatrol : IState
             if (_currentWayPoint >= _wayPoints.Length) _currentWayPoint = 0;
         }
 
+        if(_myHunter.Energy > 0)
+        {
+            _myHunter.ConsumeEnergy(Time.deltaTime);
+        }
+        else
+        {
+            _fsm.ChangeState(AgentState.Rest);
+            return;
+        }
+
         bool startHunt = false;
-        Boid closeBoid = null;
+        closeBoid = null;
         foreach(var boid in GameManager.Instance.allBoids)
         {
             if (FovCheck(boid.transform.position))

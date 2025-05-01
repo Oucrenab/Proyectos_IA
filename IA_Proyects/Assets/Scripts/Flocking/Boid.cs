@@ -2,24 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Boid : Agent
 {
-    [SerializeField] TreeNode _firtNode;
+    [SerializeField] public TreeNode _firtNode;
 
     protected Action MyMovement = delegate { };
 
+    [SerializeField, Range(0,360)] float inEvadeViewRange;
+    [Space]
     [SerializeField] BoidState _currentState;
-    [SerializeField] Agent _closeHunter = null;
-    [SerializeField] Food _closeFood = null;
-    [SerializeField] Vector3 _randomPos = Vector3.zero;
+    Agent _closeHunter = null;
+    Food _closeFood = null;
+    Vector3 _randomPos = Vector3.zero;
 
+    [SerializeField]SpriteRenderer[] _spriteR;
+    [SerializeField] Color _randomColor = Color.gray;
+    [SerializeField] Color _flockingColor = Color.green;
+    [SerializeField] Color _eatColor = Color.cyan;
+    [SerializeField] Color _evadeColor = Color.yellow;
 
     protected override void Start()
     {
         GameManager.Instance.allBoids.Add(this);
-
         //AddForce(new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0) * _maxVelocity);
 
         if (_firtNode != null)
@@ -37,7 +42,7 @@ public class Boid : Agent
                     AddForce(Evade(GameManager.Instance.allHunter[0]));
                 else
                     AddForce(Evade(_closeHunter));
-
+                
                 break;
             case BoidState.ArribeFood:
                 if (_closeFood != null)
@@ -182,6 +187,11 @@ public class Boid : Agent
 
     public void StartEvadeHunter()
     {
+        foreach (var renderer in _spriteR)
+            renderer.color = _evadeColor;
+
+        _viewAngle = inEvadeViewRange;
+
         _currentState = BoidState.EvadeHunter;
     }
 
@@ -214,6 +224,12 @@ public class Boid : Agent
     public void StartFoodArribe()
     {
         if (_currentState == BoidState.ArribeFood) return;
+
+        foreach (var renderer in _spriteR)
+            renderer.color = _eatColor;
+
+        _viewAngle = _maxViewAngle;
+
         _currentState = BoidState.ArribeFood;
 
     }
@@ -238,6 +254,12 @@ public class Boid : Agent
     public void StartFlocking()
     {
         if (_currentState == BoidState.Flocking) return;
+
+        foreach (var renderer in _spriteR)
+            renderer.color = _flockingColor;
+
+        _viewAngle = _maxViewAngle;
+
         _currentState = BoidState.Flocking;
 
     }
@@ -246,6 +268,11 @@ public class Boid : Agent
     {
         if(_currentState == BoidState.RandomMovement) return;
         _currentState = BoidState.RandomMovement;
+
+        foreach (var renderer in _spriteR)
+            renderer.color = _randomColor;
+
+        _viewAngle = _maxViewAngle;
 
         StartCoroutine(ChangeRandomPos());
 
