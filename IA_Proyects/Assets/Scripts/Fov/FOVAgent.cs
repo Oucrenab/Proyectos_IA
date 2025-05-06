@@ -56,12 +56,13 @@ public class FOVAgent : FOVTarget
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, _viewRange);
 
-        Vector3 dirA = GetAngleFromDir(_viewAngle * 0.5f + transform.eulerAngles.y);
-        Vector3 dirB = GetAngleFromDir(-_viewAngle * 0.5f + transform.eulerAngles.y);
+        Vector3 dirA = GetAngleFromDir(_viewAngle * 0.5f + transform.eulerAngles.z);
+        Vector3 dirB = GetAngleFromDir(-_viewAngle * 0.5f + transform.eulerAngles.z);
 
-        Gizmos.DrawLine(transform.position, transform.position + dirA.normalized);
-        Gizmos.DrawLine(transform.position, transform.position + dirB.normalized);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + dirA.normalized * _viewRange);
+        Gizmos.DrawLine(transform.position, transform.position + dirB.normalized * _viewRange);
     }
 
-    Vector3 GetAngleFromDir(float angleIndeg) => new Vector3(Mathf.Sin(angleIndeg * Mathf.Deg2Rad),0,Mathf.Cos(angleIndeg* Mathf.Deg2Rad));
+    Vector3 GetAngleFromDir(float angleIndeg) => new Vector3(Mathf.Cos(angleIndeg * Mathf.Deg2Rad), Mathf.Sin(angleIndeg * Mathf.Deg2Rad), 0);
 }

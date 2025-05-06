@@ -2218,6 +2218,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4874579785663872869, guid: c1970eb7475c5cb45939bbd53acd5a9d, type: 3}
+      propertyPath: _viewAngle
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874579785663872869, guid: c1970eb7475c5cb45939bbd53acd5a9d, type: 3}
       propertyPath: _maxViewAngle
       value: 120
       objectReference: {fileID: 0}
