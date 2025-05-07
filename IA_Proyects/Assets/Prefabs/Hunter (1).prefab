@@ -267,17 +267,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629abf97a238715408f2859a102f0c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _otherAgents: []
   _obstacle:
     serializedVersion: 2
     m_Bits: 0
-  _viewAngre: 110
+  _maxViewAngle: 0
+  _viewAngle: 0
   _viewRange: 2
-  _target: {fileID: 0}
   _maxVelocity: 5
-  _maxForce: 0.25
+  _maxForce: 5
   _arriveRad: 0
-  _currentElection: 0
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}

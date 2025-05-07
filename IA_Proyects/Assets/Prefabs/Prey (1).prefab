@@ -99,24 +99,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c35c1d4b7c61644a95585b8f72c1856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _otherAgents: []
   _obstacle:
     serializedVersion: 2
     m_Bits: 0
   _maxViewAngle: 360
   _viewAngle: 0
   _viewRange: 2
-  _target: {fileID: 0}
   _maxVelocity: 3
-  _maxForce: 0.2
+  _maxForce: 5
   _arriveRad: 2
-  _currentElection: 0
   _firtNode: {fileID: 0}
-  _currentState: 0
-  _closeHunter: {fileID: 0}
-  _closeFood: {fileID: 0}
-  _randomPos: {x: 0, y: 0, z: 0}
   inEvadeViewRange: 240
+  _currentState: 0
   _spriteR:
   - {fileID: 2415101241879627209}
   - {fileID: 2928843577666849511}

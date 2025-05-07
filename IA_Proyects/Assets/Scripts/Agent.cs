@@ -8,7 +8,7 @@ public abstract class Agent : FOVAgent
     [Space]
     [Header("<color=green>Agent Stats</color>")]
     [SerializeField, Range(0, 20)] protected float _maxVelocity;
-    [SerializeField, Range(0, 1)] protected float _maxForce;
+    [SerializeField, Range(0, 10f)] protected float _maxForce;
     [SerializeField] float _arriveRad;
     [Space]
     protected SteeringElection _currentElection;
@@ -50,7 +50,7 @@ public abstract class Agent : FOVAgent
         
         var steering = desired - _velocity;
         steering.z = 0;
-        steering = Vector3.ClampMagnitude(steering, _maxForce);
+        steering = Vector3.ClampMagnitude(steering, _maxForce * Time.deltaTime);
         
         
         return steering;

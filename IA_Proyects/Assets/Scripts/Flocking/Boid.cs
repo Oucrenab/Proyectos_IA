@@ -161,7 +161,7 @@ public class Boid : Agent
         var steering = desired - _velocity;
         steering.z = 0;
 
-        steering = Vector3.ClampMagnitude(steering, _maxForce);
+        steering = Vector3.ClampMagnitude(steering, _maxForce * Time.deltaTime);
 
         return steering;
     }
@@ -201,7 +201,8 @@ public class Boid : Agent
 
         foreach (var food in GameManager.Instance.allFood)
         {
-            final = InFOV(food.transform.position);
+            if (!final)
+                final = InFOV(food.transform.position);
 
             if (_closeFood == null) _closeFood = food;
             if (_closeFood != food)
@@ -244,7 +245,8 @@ public class Boid : Agent
             if (boid == this)
                 continue;
 
-            final = InFOV(boid.transform.position);
+            if (!final)
+                final = InFOV(boid.transform.position);
 
         }
 
