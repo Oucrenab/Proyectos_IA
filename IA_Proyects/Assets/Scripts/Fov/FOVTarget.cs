@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FOVTarget : MonoBehaviour
 {
-    SpriteRenderer _spriteR;
+    private SpriteRenderer _spriteRenderer;
 
     protected virtual void Awake()
     {
-        _spriteR = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void ChangeColor(Color newColor)
     {
-        _spriteR.material.color = newColor;
+        _spriteRenderer.material.color = newColor;
     }
 }

@@ -6,7 +6,7 @@ public class FOVAgent : FOVTarget
 {
     //[SerializeField]protected List<FOVTarget> _otherAgents;
 
-    [Header("<color=cyan>FOV Agent</color>")]
+    [Header("<color=blue>FOV Agent</color>")]
     [SerializeField]protected LayerMask _obstacle;
     [Space]
     [SerializeField, Range(0, 360)] protected float _maxViewAngle;
@@ -20,7 +20,7 @@ public class FOVAgent : FOVTarget
 
     protected virtual void Start()
     {
-        ChangeColor(Color.red);
+        //ChangeColor(Color.red);
     }
 
     protected virtual void Update()
@@ -48,7 +48,7 @@ public class FOVAgent : FOVTarget
     {
         Vector3 dir = end - start;
 
-        return !(Physics.Raycast(start, dir.normalized, dir.magnitude, _obstacle));
+        return !(Physics2D.Raycast(start, dir.normalized, dir.magnitude, _obstacle));
     }
 
     protected void OnDrawGizmosSelected()
