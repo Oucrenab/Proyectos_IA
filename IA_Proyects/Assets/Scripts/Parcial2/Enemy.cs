@@ -35,6 +35,8 @@ public class Enemy : Agent
 
     protected override void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EventManager.Trigger("OnPlayerDetected", _player.transform.position);
@@ -70,7 +72,7 @@ public class Enemy : Agent
 
     private void FixedUpdate()
     {
-        GetClossestNode();
+        
 
         
         SearchPlayer();
@@ -85,7 +87,7 @@ public class Enemy : Agent
         {
             _currentState = EnemyState.ChacePlayer;
 
-            if(Time.time > _lastPyDetectTime + 1)
+            if(Time.time > _lastPyDetectTime + 2.5)
             EventManager.Trigger("OnPlayerDetected", _player.transform.position);
             //_currentPath = _myPath.CalculateAStar(_startNode, _player.CloseNode);
         }
@@ -94,6 +96,7 @@ public class Enemy : Agent
             if(_currentState == EnemyState.ChacePlayer)
             {
                 _currentState = EnemyState.None;
+                _canCalculatePath = true;
                 CalcPathToPlayer(_player.transform.position);
             }
         }
@@ -117,6 +120,9 @@ public class Enemy : Agent
 
                 CalcPathToPatrol();
             }
+
+            if(!_canCalculatePath) _canCalculatePath = true;
+
             return;
         }
 
@@ -137,6 +143,8 @@ public class Enemy : Agent
         FollowPath();
     }
 
+    [SerializeField] bool _canCalculatePath;
+
     void FollowPath()
     {
         if (!(_currentPath.Count > 0)) return;
@@ -147,6 +155,10 @@ public class Enemy : Agent
         {
             _currentPath.RemoveAt(0);
             //if (_currentNodeIndex >= _patrolNodes.Length) _currentNodeIndex = 0;
+            if(_currentState == EnemyState.GoToPlayer) 
+            {
+                _canCalculatePath = true;
+            }
         }
     }
 
@@ -197,11 +209,19 @@ public class Enemy : Agent
     void CalcPathToPlayer(params object[] playerPos)
     {
         if (_currentState == EnemyState.ChacePlayer) return;
+        if (!_canCalculatePath) return;
+        _canCalculatePath = false;
 
         _lastPlayerPos = (Vector3)playerPos[0];
 
         var _closeNode = FindCloseNodeToPos(_lastPlayerPos);
-        if(_closeNode == null ) return;
+        if (_closeNode == null)
+        {
+            CalcPathToPatrol();
+            return;
+        }
+
+        GetClossestNode();
 
         _currentPath = _myPath.CalculateAStar(_startNode, _closeNode);
         _lastPyDetectTime = Time.time;
@@ -210,6 +230,8 @@ public class Enemy : Agent
 
     void CalcPathToPatrol()
     {
+        GetClossestNode();
+
         _currentPath = _myPath.CalculateAStar(_startNode, _patrolNodes[_currentNodeIndex]);
 
         _currentState = EnemyState.GoToPatrol;
@@ -232,6 +254,8 @@ public class Enemy : Agent
             _currentNodeIndex++;
             if (_currentNodeIndex >= _patrolNodes.Length) _currentNodeIndex = 0;
         }
+
+        if(!_canCalculatePath) _canCalculatePath=true;
     }
 
 
