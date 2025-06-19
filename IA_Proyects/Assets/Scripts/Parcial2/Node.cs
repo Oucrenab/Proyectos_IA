@@ -92,43 +92,43 @@ public class Node : FOVAgent
         return finalNeightbors;
     }
 
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(2)) //Rueda del medio
-        {
-            Block = !Block;
+    //private void OnMouseOver()
+    //{
+    //    if (Input.GetMouseButtonDown(2)) //Rueda del medio
+    //    {
+    //        Block = !Block;
 
-            myMesh.material = Block ? _myBlockMaterial : _myBaseMaterial;
-        }
+    //        myMesh.material = Block ? _myBlockMaterial : _myBaseMaterial;
+    //    }
 
-        if (Input.GetMouseButtonUp(0)) //Click Izquierdo
-        {
-            if (PathfindingGameManager.instance.startNode != null)
-                PathfindingGameManager.instance.startNode.myMesh.material = _myBaseMaterial;
+    //    if (Input.GetMouseButtonUp(0)) //Click Izquierdo
+    //    {
+    //        if (PathfindingGameManager.instance.startNode != null)
+    //            PathfindingGameManager.instance.startNode.myMesh.material = _myBaseMaterial;
 
-            PathfindingGameManager.instance.startNode = this;
-            myMesh.material = _myStartMaterial;
-        }
+    //        PathfindingGameManager.instance.startNode = this;
+    //        myMesh.material = _myStartMaterial;
+    //    }
 
-        if (Input.GetMouseButtonUp(1)) //Click Derecho
-        {
-            if (PathfindingGameManager.instance.goalNode != null)
-                PathfindingGameManager.instance.goalNode.myMesh.material = _myBaseMaterial;
+    //    if (Input.GetMouseButtonUp(1)) //Click Derecho
+    //    {
+    //        if (PathfindingGameManager.instance.goalNode != null)
+    //            PathfindingGameManager.instance.goalNode.myMesh.material = _myBaseMaterial;
 
-            PathfindingGameManager.instance.goalNode = this;
-            myMesh.material = _myGoalMaterial;
-        }
+    //        PathfindingGameManager.instance.goalNode = this;
+    //        myMesh.material = _myGoalMaterial;
+    //    }
 
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            SetCost(+1);
-        }
+    //    if (Input.mouseScrollDelta.y > 0)
+    //    {
+    //        SetCost(+1);
+    //    }
 
-        if (Input.mouseScrollDelta.y < 0)
-        {
-            SetCost(-1);
-        }
-    }
+    //    if (Input.mouseScrollDelta.y < 0)
+    //    {
+    //        SetCost(-1);
+    //    }
+    //}
 
     void SetCost(int value)
     {

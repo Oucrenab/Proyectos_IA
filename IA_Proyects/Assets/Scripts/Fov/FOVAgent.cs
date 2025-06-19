@@ -51,6 +51,14 @@ public class FOVAgent : FOVTarget
         return !(Physics2D.Raycast(start, dir.normalized, dir.magnitude, _obstacle));
     }
 
+    protected bool InLOS(Vector3 start, Vector3 end, float radius)
+    {
+        Vector3 dir = end - start;
+
+        return !(Physics2D.Raycast(start, dir.normalized, radius, _obstacle));
+    }
+
+
     protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;

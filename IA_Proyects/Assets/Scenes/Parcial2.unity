@@ -1031,9 +1031,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _calcCD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _hearArea
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _patrolNodes.Array.size
       value: 4
@@ -2106,9 +2118,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _calcCD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _hearArea
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _patrolNodes.Array.size
       value: 4
@@ -3162,9 +3186,21 @@ PrefabInstance:
       value: 0.7735849
       objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _calcCD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _hearArea
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _patrolNodes.Array.size
       value: 2
@@ -4701,9 +4737,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: pingo
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _calcCD
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 673576911}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _hearArea
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
+      propertyPath: _arriveRad
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5384091335042482246, guid: 5b75b6f309ed22649a1a7e2236d76b7a, type: 3}
       propertyPath: _patrolNodes.Array.size
       value: 4
