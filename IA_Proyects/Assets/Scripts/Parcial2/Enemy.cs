@@ -56,10 +56,10 @@ public class Enemy : Agent
     {
         
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EventManager.Trigger("OnPlayerDetected", player.transform.position);
-        }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    EventManager.Trigger("OnPlayerDetected", player.transform.position);
+        //}
 
         //switch (_currentState)
         //{
@@ -188,7 +188,7 @@ public class Enemy : Agent
 
     void GetClossestNode()
     {
-        var posibleNeightbors = Physics2D.OverlapCircleAll(transform.position, _viewRange * 1.5f);
+        var posibleNeightbors = Physics2D.OverlapCircleAll(transform.position, _viewRange * 3f);
 
         foreach (var node in posibleNeightbors)
         {
