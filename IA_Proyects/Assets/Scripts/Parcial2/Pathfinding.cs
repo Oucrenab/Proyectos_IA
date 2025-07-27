@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class Pathfinding
 {
+    LayerMask _obstacle;
+
+    public Pathfinding SetObstacleMask(LayerMask obstacle)
+    {
+        _obstacle = obstacle;
+        return this;
+    }
+
     public List<Node> CalculateBFS(Node startNode, Node goalNode)
     {
         //frontier = Queue()
@@ -201,6 +209,31 @@ public class Pathfinding
             }
         }
         return new List<Node>();
+    }
+
+    public List<Node> CalculateThetaStar(Node startNode, Node goalNode)
+    {
+        var listNode = CalculateAStar(startNode, goalNode);
+
+        int currentCount = 0;
+
+        while (currentCount + 2 < listNode.Count)
+        {
+            if (InLOS(listNode[currentCount].transform.position, listNode[currentCount + 2].transform.position))
+                listNode.RemoveAt(currentCount + 1);
+            else
+                currentCount++;
+        }
+        return listNode;
+    }
+
+    public bool InLOS(Vector3 start, Vector3 end)
+    {
+        Vector3 dir = end - start;
+
+        Debug.DrawRay(start, dir, Color.red, dir.magnitude);
+
+        return !Physics2D.Raycast(start, dir.normalized, dir.magnitude, _obstacle);
     }
 
     public IEnumerator CalculateBFSCoroutine(Node startNode, Node goalNode)

@@ -69,21 +69,21 @@ public class Boid : Agent
         base.Update();
     }
 
-    void Flocking()
+    protected virtual void Flocking()
     {
         //Debug.Log("Flockeando");
 
-        AddForce(Separation(GameManager.Instance.allBoids, GameManager.Instance.separationRadius) * GameManager.Instance.separationForce);
-        AddForce(Cohesion(GameManager.Instance.allBoids, GameManager.Instance.cohesionAlignmentRadius) * GameManager.Instance.cohesionForce);
-        AddForce(Alignment(GameManager.Instance.allBoids, GameManager.Instance.cohesionAlignmentRadius) * GameManager.Instance.alignmetForce);
+        //AddForce(Separation(GameManager.Instance.allBoids, GameManager.Instance.separationRadius) * GameManager.Instance.separationForce);
+        //AddForce(Cohesion(GameManager.Instance.allBoids, GameManager.Instance.cohesionAlignmentRadius) * GameManager.Instance.cohesionForce);
+        //AddForce(Alignment(GameManager.Instance.allBoids, GameManager.Instance.cohesionAlignmentRadius) * GameManager.Instance.alignmetForce);
     }
 
-    Vector3 Separation(List<Boid> myBoids, float radius)
+    protected virtual Vector3 Separation(List<Agent> myBoids, float radius)
     {
         Vector3 desired = Vector3.zero;
 
 
-        foreach (Boid boid in myBoids)
+        foreach (var boid in myBoids)
         {
             if (boid == this) continue;
 
@@ -98,13 +98,13 @@ public class Boid : Agent
         return Seek(desired);
     }
 
-    Vector3 Cohesion(List<Boid> myBoids, float radius)
+    protected virtual Vector3 Cohesion(List<Agent> myBoids, float radius)
     {
         Vector3 desired = transform.position;
         int count = 0;
 
 
-        foreach (Boid boid in myBoids)
+        foreach (var boid in myBoids)
         {
             if (boid == this) continue;
             if (Vector3.Distance(transform.position, boid.transform.position) > radius)
@@ -126,13 +126,13 @@ public class Boid : Agent
         return Seek(desired);
     }
 
-    Vector3 Alignment(List<Boid> myBoids, float radius)
+    protected virtual Vector3 Alignment(List<Agent> myBoids, float radius)
     {
         Vector3 desired = Vector3.zero;
         int count = 0;
 
 
-        foreach (Boid boid in myBoids)
+        foreach (var boid in myBoids)
         {
             if (boid == this) continue;
             if (Vector3.Distance(transform.position, boid.transform.position) > radius)
@@ -235,7 +235,7 @@ public class Boid : Agent
 
     }
 
-    public bool CheckForBoids()
+    public virtual bool CheckForBoids()
     {
 
         bool final = false;
@@ -309,6 +309,7 @@ public class Boid : Agent
 
     private void OnDestroy()
     {
+        if(!GameManager.Instance) return;
         GameManager.Instance.allBoids.Remove(this);
         foreach(var food in GameManager.Instance.allFood)
         {

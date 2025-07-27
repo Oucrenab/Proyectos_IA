@@ -44,7 +44,7 @@ public class FOVAgent : FOVTarget
         return true;
     }
 
-    protected bool InLOS(Vector3 start, Vector3 end)
+    protected virtual bool InLOS(Vector3 start, Vector3 end)
     {
         Vector3 dir = end - start;
 

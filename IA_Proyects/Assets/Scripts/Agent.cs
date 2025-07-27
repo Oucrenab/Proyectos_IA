@@ -9,7 +9,9 @@ public abstract class Agent : FOVAgent
     [Header("<color=green>Agent Stats</color>")]
     [SerializeField, Range(0, 20)] protected float _maxVelocity;
     [SerializeField, Range(0, 10f)] protected float _maxForce;
-    [SerializeField] float _arriveRad;
+    [SerializeField, Range(0f, 2f)] protected float _sphereCastRadius = 1;
+    [SerializeField, Range(0f, 1f)] protected float _maxOAForce;
+    [SerializeField] protected float _arriveRad;
     [Space]
     protected SteeringElection _currentElection;
 
@@ -72,7 +74,7 @@ public abstract class Agent : FOVAgent
         return Flee(desired);
     }
 
-    protected Vector3 Arrive(Vector3 target)
+    protected virtual Vector3 Arrive(Vector3 target)
     {
         float dist = Vector3.Distance(target, transform.position);
 
@@ -97,5 +99,30 @@ public abstract class Agent : FOVAgent
     {
         _velocity = Vector3.ClampMagnitude(_velocity + dir, _maxVelocity);
 
+    }
+
+    protected virtual Vector3 ObstacleAvoidance()
+    {
+        Vector3 pos = transform.position;
+        Vector3 dir = transform.right;
+        //Vector3 dir = _velocity;
+        float dist = _velocity.magnitude;
+
+        //if (Physics.SphereCast(pos, _sphereCastRadius, dir, out RaycastHit hit, dist, _obstacle))
+        var hit = Physics2D.CircleCast(pos, _sphereCastRadius, dir, _sphereCastRadius, _obstacle);
+        if (hit && hit.transform.lossyScale.sqrMagnitude < transform.lossyScale.sqrMagnitude * 2)
+        {
+            var obstacle = hit.transform;
+            Vector3 dirToObj = obstacle.position - pos;
+            float angle = Vector3.SignedAngle(dir, dirToObj, Vector3.up);
+            Vector3 desired = angle > 0 ? -transform.up : transform.up;
+            desired = desired.normalized;
+            desired *= _maxVelocity;
+
+            //Steering
+            Vector3 steering = desired - _velocity;
+            return Vector3.ClampMagnitude(steering, _maxOAForce * _maxForce);
+        }
+        return Vector3.zero;
     }
 }

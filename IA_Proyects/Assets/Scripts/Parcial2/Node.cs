@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor.Experimental.GraphView;
+using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Node : FOVAgent
 {
